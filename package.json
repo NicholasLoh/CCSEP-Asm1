@@ -1,0 +1,22 @@
+{
+  "name": "asm1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "D:\\Curtin\\CCSEP\\asm1\\src",
+  "directories": {
+    "src": "src",
+    "test": "test"
+  },
+  "scripts": {
+    "start": "NODE_ENV=production node server",
+    "dev": "nodemon server"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "mongoose": "^5.10.3",
+    "nodemon": "^2.0.4"
+  }
+}
