@@ -1,9 +1,14 @@
 const express = require("express");
+const dotenv = require("dotenv");
 const path = require("path");
+
 const connectDB = require("./db");
 const PORT = 3000;
 
 const app = express();
+
+//load env
+dotenv.config({ path: "./config.env" });
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "./views"));
