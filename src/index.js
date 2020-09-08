@@ -7,8 +7,17 @@ const PORT = 3000;
 
 const app = express();
 
+//use forms
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
+
+app.use(express.json());
+
 //load env
-dotenv.config({ path: "./config.env" });
+dotenv.config({ path: "./src/config.env" });
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "./views"));
