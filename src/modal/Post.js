@@ -6,9 +6,8 @@ const postSchema = new mongoose.Schema({
     required: true,
     maxlength: [50, "Name cannot be longer than 50 words"],
   },
-  user: {
-    type: mongoose.Schema.ObjectId,
-    ref: "User",
+  author: {
+    type: "String",
     required: true,
   },
   description: {

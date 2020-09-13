@@ -1,6 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const path = require("path");
+const cookieParser = require("cookie-parser");
 
 const connectDB = require("./db");
 const PORT = 3000;
@@ -15,6 +16,7 @@ app.use(
 );
 
 app.use(express.json());
+app.use(cookieParser());
 
 //load env
 dotenv.config({ path: "./src/config.env" });
@@ -24,7 +26,8 @@ app.set("views", path.join(__dirname, "./views"));
 app.use("/styles", express.static(__dirname + "/styles"));
 
 //route files
-const user = require("./routes/user");
+const index = require("./routes/index");
+const auth = require("./routes/auth");
 const post = require("./routes/post");
 
 connectDB();
@@ -34,5 +37,6 @@ app.listen(PORT, function () {
 });
 
 //mount routers
-app.use("/", user);
+app.use("/", index);
+app.use("/auth", auth);
 app.use("/post", post);

@@ -3,12 +3,44 @@ const ErrorResponse = require("../utils/ErrorResponse");
 const asyncHandler = require("../middleware/asyncHandler");
 
 exports.getPosts = asyncHandler(async (req, res, next) => {
-  let posts = await Post.find();
+  let reqQuery = req.query;
+
+  let queryStr = JSON.stringify(reqQuery);
+
+  queryStr = queryStr.replace(
+    /\b(gt|gte|lt|lte|in|ne)\b/g,
+    (match) => `$${match}`
+  );
+
+  //find in db
+  posts = await Post.find(JSON.parse(queryStr));
+
+  req.posts = posts;
+  next();
+});
+
+exports.searchPosts = asyncHandler(async (req, res, next) => {
+  let reqQuery = req.query;
+
+  console.log(">>>>>>>>>>>>>>>>>>>>>", reqQuery);
+
+  let queryStr = JSON.stringify(reqQuery);
+
+  /* queryStr = queryStr.replace(
+    /\b(gt|gte|lt|lte|in|ne)\b/g,
+    (match) => `$${match}`
+  );
+ */
+  console.log(JSON.parse(queryStr));
+  //find in db
+  posts = await Post.find(JSON.parse(queryStr));
+
+  console.log(posts);
   res.status(200).json(posts);
 });
 
 exports.getPost = asyncHandler(async (req, res, next) => {
-  let recipes = await Recipe.findById(req.params.id).populate("user");
+  let recipes = await Post.findById(req.params.id).populate("user");
 
   if (!recipes) {
     return next(
@@ -23,12 +55,12 @@ exports.getPost = asyncHandler(async (req, res, next) => {
 });
 
 exports.createPost = asyncHandler(async (req, res, next) => {
-  req.body.user = req.user._id;
-  let recipe = await Recipe.create(req.body);
+  req.body.author = req.user.username;
+  let post = await Post.create(req.body);
   res.status(200).json({
     success: true,
-    msg: "Add new recipe",
-    data: recipe,
+    msg: "Add new post",
+    data: post,
   });
 });
 

@@ -15,9 +15,7 @@ exports.register = asyncHandler(async (req, res, next) => {
   const token = user.getSignedJwtToken();
 
   const options = {
-    expires: new Date(
-      Date.now() + process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
-    ),
+    expires: new Date(Date.now() + 1 * 60 * 60 * 1000),
     httpOnly: true,
   };
 
@@ -25,38 +23,29 @@ exports.register = asyncHandler(async (req, res, next) => {
     options.secure = true;
   }
 
-  res.cookie("token", token, options);
-  res.body("user", user);
-  res.redirect("/home");
+  res.cookie("x-access-token", token, options);
+  res.redirect("/");
 });
 
 exports.login = asyncHandler(async (req, res, next) => {
-  let query = {};
-
+  let reqQuery = req.query;
   //Validate email and password
-  if (!req.body.username || !req.body.password) {
-    return next(new ErrorResponse("Please provide email and password", 400));
+  if (!reqQuery.username || !reqQuery.password) {
+    return res.status(400).send("Invalid credentials");
   }
 
-  query.username = req.body.username;
-  query.password = req.body.password;
-
-  console.log(query);
+  console.log(">>>>>>>>>>>>>>>>", reqQuery);
   //check for user if exist
-  const user = await User.findOne(query);
-
-  console.log(user);
+  const user = await User.findOne(reqQuery);
 
   if (!user) {
-    return next(new ErrorResponse("Invalid credentials", 401));
+    return res.status(400).send("Invalid credentials");
   }
 
   const token = user.getSignedJwtToken();
 
   const options = {
-    expires: new Date(
-      Date.now() + process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
-    ),
+    expires: new Date(Date.now() + 1 * 60 * 60 * 1000),
     httpOnly: true,
   };
 
@@ -64,6 +53,6 @@ exports.login = asyncHandler(async (req, res, next) => {
     options.secure = true;
   }
 
-  res.cookie("token", token, options);
-  res.redirect("/home");
+  res.cookie("x-access-token", token, options);
+  res.redirect("/");
 });
