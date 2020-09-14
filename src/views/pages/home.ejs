@@ -12,6 +12,10 @@
       crossorigin="anonymous"
     />
 
+    <script
+      src="https://kit.fontawesome.com/af01732839.js"
+      crossorigin="anonymous"
+    ></script>
     <link href="/styles/home.css" rel="stylesheet" type="text/css" />
 
     <style>
@@ -36,25 +40,61 @@
   <body>
     <div class="container">
       <h1 class="h3 font-weight-normal">Welcome, <%= user.username %></h1>
-
-      <div class="container">
+      <div class="container searchContainer">
+        <div class="dropdown dropdownBtn">
+          <button
+            class="btn dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            author
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a
+              class="dropdown-item"
+              id="author"
+              onclick="setSearch('author')"
+              href="#"
+              >Author</a
+            >
+            <a
+              class="dropdown-item"
+              id="title"
+              onclick="setSearch('title')"
+              href="#"
+              >Title</a
+            >
+            <a
+              class="dropdown-item"
+              id="description"
+              onclick="setSearch('content')"
+              href="#"
+              >Content</a
+            >
+          </div>
+        </div>
         <input
           type="text"
           name="searchTerm"
           id="inputSearch"
-          class="form-control"
+          class="inputField"
           placeholder="Search"
           required
         />
 
         <button
           onclick="search()"
-          class="btn btn-primary btn-block"
+          class="searchBtn btn"
           id="search"
           type="submit"
         >
-          Search
+          <i class="fas fa-search"></i>
         </button>
+      </div>
+      <div class="container">
         <% posts.forEach( (post) => { %>
         <div class="container postContainer">
           <h3><%= post.title %></h3>
@@ -86,6 +126,8 @@
   ></script>
 
   <script>
+    let queryField = "author";
+
     function showAll(id) {
       let e = document.getElementById(id);
       e.className.includes("postBodyWithClamp")
@@ -93,12 +135,24 @@
         : e.setAttribute("class", "postBodyWithClamp isLink");
     }
 
+    function setSearch(term) {
+      let e = document.getElementById("dropdownMenuButton");
+      e.innerText = term;
+      queryField = event.srcElement.id;
+
+      console.log("Search", queryField);
+    }
+
     function search() {
       let inputVal = document.getElementById("inputSearch").value;
-      let field = "author";
-      //construct request url
-      const url = `/?${field}=${inputVal}`;
+      let field = document.getElementById("dropdownMenuButton").id;
 
+      console.log("Search", queryField);
+
+      //construct request url
+      const url = `/?${queryField}[$regex]=${inputVal}`;
+
+      console.log(">>>>>>>>>>>", url);
       location.href = url;
     }
     /* $(document).ready(function () {

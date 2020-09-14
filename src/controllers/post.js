@@ -5,6 +5,8 @@ const asyncHandler = require("../middleware/asyncHandler");
 exports.getPosts = asyncHandler(async (req, res, next) => {
   let reqQuery = req.query;
 
+  console.log(reqQuery);
+  /* console.log(reqQuery);
   let queryStr = JSON.stringify(reqQuery);
 
   queryStr = queryStr.replace(
@@ -12,8 +14,9 @@ exports.getPosts = asyncHandler(async (req, res, next) => {
     (match) => `$${match}`
   );
 
+  console.log(JSON.parse(queryStr)); */
   //find in db
-  posts = await Post.find(JSON.parse(queryStr));
+  posts = await Post.find(reqQuery);
 
   req.posts = posts;
   next();
@@ -31,11 +34,10 @@ exports.searchPosts = asyncHandler(async (req, res, next) => {
     (match) => `$${match}`
   );
  */
-  console.log(JSON.parse(queryStr));
+
   //find in db
   posts = await Post.find(JSON.parse(queryStr));
 
-  console.log(posts);
   res.status(200).json(posts);
 });
 
@@ -57,11 +59,7 @@ exports.getPost = asyncHandler(async (req, res, next) => {
 exports.createPost = asyncHandler(async (req, res, next) => {
   req.body.author = req.user.username;
   let post = await Post.create(req.body);
-  res.status(200).json({
-    success: true,
-    msg: "Add new post",
-    data: post,
-  });
+  res.redirect("/");
 });
 
 exports.deletePost = asyncHandler(async (req, res, next) => {

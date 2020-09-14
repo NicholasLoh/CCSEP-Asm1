@@ -10,6 +10,11 @@ const {
 const { protect } = require("../middleware/auth");
 
 router.route("/").get(getPosts).post(protect, createPost);
+
+router.get("/create", (req, res) => {
+  res.render("../views/pages/addPost");
+});
+
 router.route("/search").get(protect, searchPosts);
 router.route("/:id").get(getPost).delete(deletePost);
 
