@@ -21,7 +21,8 @@ This program is a vulnerabilities webpage to demo the vulnerability of NoSQL Inj
 4. You will see the following line: <br />
    `POST /auth/login?username=<username>&password=<password> HTTP/1.1`
 5. Change to `POST /auth/login?username=<username>&password[$ne]=null HTTP/1.1`
-6. Forward the following request and you will be logged in.
+6. Change `username=<username>` to `username[$ne]=null` if you are using random username
+7. Forward the following request and you will be logged in.
 
 ## Patching
 
