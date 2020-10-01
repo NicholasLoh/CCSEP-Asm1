@@ -35,6 +35,7 @@ exports.login = asyncHandler(async (req, res, next) => {
     return res.status(400).send("Invalid credentials");
   }
 
+  reqQuery.username = reqQuery.username.toString();
   reqQuery.password = reqQuery.password.toString();
 
   //check for user if exist
@@ -51,9 +52,7 @@ exports.login = asyncHandler(async (req, res, next) => {
     httpOnly: true,
   };
 
-  if (process.env.NODE_ENV === "production") {
-    options.secure = true;
-  }
+  options.secure = true;
 
   res.cookie("x-access-token", token, options);
   res.redirect("/");
