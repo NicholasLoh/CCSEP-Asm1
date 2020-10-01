@@ -6,15 +6,6 @@ const User = require("../modal/User");
 exports.protect = AsyncHandler(async (req, res, next) => {
   let token = req.cookies["x-access-token"];
 
-  /* if (
-    req.headers.authorization &&
-    req.headers.authorization.startsWith("Bearer")
-  ) {
-    token = req.headers.authorization.split(" ")[1];
-  } else if (req.cookies.token) {
-    token = req.cookies.token;
-  } */
-
   //if token not exist
   if (!token) {
     res.redirect("/auth/login");

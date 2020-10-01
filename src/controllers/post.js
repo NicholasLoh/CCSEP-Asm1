@@ -5,19 +5,10 @@ const asyncHandler = require("../middleware/asyncHandler");
 exports.getPosts = asyncHandler(async (req, res, next) => {
   let reqQuery = req.query;
 
-  console.log(reqQuery);
-  /* console.log(reqQuery);
-  let queryStr = JSON.stringify(reqQuery);
-
-  queryStr = queryStr.replace(
-    /\b(gt|gte|lt|lte|in|ne)\b/g,
-    (match) => `$${match}`
-  );
-
-  console.log(JSON.parse(queryStr)); */
   //find in db
-  posts = await Post.find(reqQuery);
+  posts = await Post.find(reqQuery).sort({ created: -1 });
 
+  console.log(posts);
   req.posts = posts;
   next();
 });
@@ -25,39 +16,31 @@ exports.getPosts = asyncHandler(async (req, res, next) => {
 exports.searchPosts = asyncHandler(async (req, res, next) => {
   let reqQuery = req.query;
 
-  console.log(">>>>>>>>>>>>>>>>>>>>>", reqQuery);
-
   let queryStr = JSON.stringify(reqQuery);
 
-  /* queryStr = queryStr.replace(
-    /\b(gt|gte|lt|lte|in|ne)\b/g,
-    (match) => `$${match}`
-  );
- */
-
   //find in db
-  posts = await Post.find(JSON.parse(queryStr));
+  posts = await Post.find(JSON.parse(queryStr)).sort({ created: -1 });
 
   res.status(200).json(posts);
 });
 
 exports.getPost = asyncHandler(async (req, res, next) => {
-  let recipes = await Post.findById(req.params.id).populate("user");
+  let post = await Post.findById(req.params.id).populate("user");
 
-  if (!recipes) {
+  if (!post) {
     return next(
       new ErrorResponse(`Recipe not found with id ${req.params.id}`, 404)
     );
   }
   res.status(200).json({
     success: true,
-    msg: "Get all recipie",
-    data: recipes,
+    data: post,
   });
 });
 
 exports.createPost = asyncHandler(async (req, res, next) => {
   req.body.author = req.user.username;
+  req.body.created = Date.now();
   let post = await Post.create(req.body);
   res.redirect("/");
 });

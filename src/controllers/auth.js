@@ -29,12 +29,12 @@ exports.register = asyncHandler(async (req, res, next) => {
 
 exports.login = asyncHandler(async (req, res, next) => {
   let reqQuery = req.query;
+
   //Validate email and password
   if (!reqQuery.username || !reqQuery.password) {
     return res.status(400).send("Invalid credentials");
   }
 
-  console.log(">>>>>>>>>>>>>>>>", reqQuery);
   //check for user if exist
   const user = await User.findOne(reqQuery);
 

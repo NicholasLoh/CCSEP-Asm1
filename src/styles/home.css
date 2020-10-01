@@ -22,6 +22,7 @@ body {
   border: 1px solid black;
   border-radius: 5px;
   margin-top: 5vh;
+  padding-top: 1em;
 }
 
 .dropdownBtn {
@@ -56,4 +57,16 @@ body {
 .author {
   color: gray;
   text-align: end;
+}
+
+#addBtn {
+  position: fixed;
+  bottom: 5vh;
+  right: 8vw;
+  z-index: 99;
+  font-size: 3.3em;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  color: #22a9e3;
 }

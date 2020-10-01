@@ -15,6 +15,9 @@ const postSchema = new mongoose.Schema({
     required: true,
     maxlength: [250, "Description cannot be longer than 50 words"],
   },
+  created: {
+    type: "Date",
+  },
 });
 const User = mongoose.model("Post", postSchema);
 module.exports = User;

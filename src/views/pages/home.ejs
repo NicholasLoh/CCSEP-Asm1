@@ -39,6 +39,8 @@
 
   <body>
     <div class="container">
+      <i onclick="goToAdd()" id="addBtn" class="fas fa-plus-circle"></i>
+
       <h1 class="h3 font-weight-normal">Welcome, <%= user.username %></h1>
       <div class="container searchContainer">
         <div class="dropdown dropdownBtn">
@@ -154,6 +156,10 @@
 
       console.log(">>>>>>>>>>>", url);
       location.href = url;
+    }
+
+    function goToAdd() {
+      location.href = "/post/create";
     }
     /* $(document).ready(function () {
       $("#search").click(function () {
