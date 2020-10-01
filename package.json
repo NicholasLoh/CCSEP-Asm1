@@ -4,12 +4,12 @@
   "description": "",
   "main": "./src",
   "directories": {
-    "src": "src",
+    "src": "./src",
     "test": "test"
   },
   "scripts": {
-    "start": "NODE_ENV=production node server",
-    "dev": "nodemon server"
+    "start": "NODE_ENV=production node index.js",
+    "dev": "nodemon index.js"
   },
   "author": "",
   "license": "ISC",
