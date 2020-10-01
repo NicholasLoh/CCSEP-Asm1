@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 //load env
-dotenv.config({ path: "./config.env" });
+dotenv.config({ path: path.join(__dirname, "./config.env") });
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "./views"));
