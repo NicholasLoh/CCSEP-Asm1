@@ -2,7 +2,7 @@
   "name": "asm1",
   "version": "1.0.0",
   "description": "",
-  "main": "D:\\Curtin\\CCSEP\\asm1\\src",
+  "main": "./src",
   "directories": {
     "src": "src",
     "test": "test"

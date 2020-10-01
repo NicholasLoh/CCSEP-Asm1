@@ -12,7 +12,7 @@ test:
 	docker run -it --rm $(APP) python manage.py test
 
 run:
-	docker run -p 0.0.0.0:8000:8000/tcp -it --rm $(APP)
+	docker run -p 0.0.0.0:3000:3000/tcp -it --rm $(APP)
 
 clean:
 	docker image rm $(APP)
