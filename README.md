@@ -11,7 +11,7 @@ This program is a vulnerabilities webpage to demo the vulnerability of NoSQL Inj
 
 ## Usage
 
-- [Run](https://localhost:3000) ( localhost:3000 )
+- [Run](http://localhost:3000) ( localhost:3000 )
 
 ## Exploitation
 
