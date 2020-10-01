@@ -4,7 +4,6 @@ const {
   getPosts,
   getPost,
   createPost,
-  deletePost,
   searchPosts,
 } = require("../controllers/post");
 const { protect } = require("../middleware/auth");
@@ -16,6 +15,6 @@ router.get("/create", (req, res) => {
 });
 
 router.route("/search").get(protect, searchPosts);
-router.route("/:id").get(getPost).delete(deletePost);
+router.route("/:id").get(getPost);
 
 module.exports = router;

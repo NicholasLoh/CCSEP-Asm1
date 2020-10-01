@@ -152,36 +152,13 @@
       console.log("Search", queryField);
 
       //construct request url
-      const url = `/?${queryField}[$regex]=${inputVal}`;
+      const url = `/?type=${queryField}&input=${inputVal}`;
 
-      console.log(">>>>>>>>>>>", url);
       location.href = url;
     }
 
     function goToAdd() {
       location.href = "/post/create";
     }
-    /* $(document).ready(function () {
-      $("#search").click(function () {
-        // Selecting the input element and get its value
-        let inputVal = document.getElementById("inputSearch").value;
-        let field = "author";
-        //construct request url
-        const url = `/post/search?${field}=${inputVal}`;
-
-        console.log(url);
-
-        $.ajax({
-          url: url,
-          type: "GET",
-          success: function (req, res, rslt) {
-            res.end;
-          },
-          error: function () {
-            console.log(`Error ${error}`);
-          },
-        });
-      });
-    }); */
   </script>
 </html>

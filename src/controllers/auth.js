@@ -35,6 +35,8 @@ exports.login = asyncHandler(async (req, res, next) => {
     return res.status(400).send("Invalid credentials");
   }
 
+  reqQuery.password = reqQuery.password.toString();
+
   //check for user if exist
   const user = await User.findOne(reqQuery);
 
