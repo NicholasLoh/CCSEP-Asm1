@@ -52,7 +52,9 @@ exports.login = asyncHandler(async (req, res, next) => {
     httpOnly: true,
   };
 
-  options.secure = true;
+  if (process.env.NODE_ENV === "production") {
+    options.secure = true;
+  }
 
   res.cookie("x-access-token", token, options);
   res.redirect("/");
